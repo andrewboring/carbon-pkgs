@@ -1,0 +1,30 @@
+# Maintainer: Andrew Boring <andrew@andrewboring.com>
+# Carbon Linux Release
+# All this does is create an /etc/carbon-release file.
+
+pkgname=carbon-linux-release
+pkgver=1.0
+pkgrel=0
+pkgdesc="Carbon Linux Release version package for Carbon Linux"
+arch=('armv7h')
+url="https://github.com/andrewboring/carbon-linux"
+license=(Public Domain)
+
+prepare() {
+  echo ok
+}
+
+build() {
+  echo ok
+}
+
+install() {
+  echo ok
+}
+
+package() {
+ mkdir -p ${pkgdir}/etc
+ echo "Carbon Linux $pkgver" > "${pkgdir}/etc/carbon-linux-release"
+}
+
+
