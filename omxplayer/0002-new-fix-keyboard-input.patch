@@ -1,12 +1,5 @@
-From 5359a817574449563922cefedf402447b23bd5e6 Mon Sep 17 00:00:00 2001
-From: Kevin Mihelich <kevin@archlinuxarm.org>
-Date: Thu, 4 Oct 2018 06:55:23 -0600
-Subject: [PATCH 2/2] fix keyboard input
-
-From: https://github.com/popcornmix/omxplayer/issues/649
----
- Keyboard.cpp | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+# This patch replaces the previous 0002-Fix-keyboard-input.patch from Arch Linux Arm repo
+# https://archlinuxarm.org/forum/viewtopic.php?t=13005
 
 diff --git a/Keyboard.cpp b/Keyboard.cpp
 index d38a102..d940421 100644
@@ -34,6 +27,4 @@ index d38a102..d940421 100644
    } 
    else 
    {
--- 
-2.18.0
 

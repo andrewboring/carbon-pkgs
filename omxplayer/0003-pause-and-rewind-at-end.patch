@@ -1,0 +1,61 @@
+From 6bcf065f36daecd5130a89454c00d74a10b8cb26 Mon Sep 17 00:00:00 2001
+From: Barry Gilbert <barry.gilbert@deelmedia.com>
+Date: Fri, 6 Jul 2018 15:46:42 -0400
+Subject: [PATCH] Pause (and rewind) at end
+
+---
+ omxplayer.cpp | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/omxplayer.cpp b/omxplayer.cpp
+index bde4536..76ead17 100644
+--- a/omxplayer.cpp
++++ b/omxplayer.cpp
+@@ -114,6 +114,7 @@ bool              m_has_audio           = false;
+ bool              m_has_subtitle        = false;
+ bool              m_gen_log             = false;
+ bool              m_loop                = false;
++bool              m_pause_at_end        = false;
+ 
+ enum{ERROR=-1,SUCCESS,ONEBYTE};
+ 
+@@ -565,6 +566,7 @@ int main(int argc, char *argv[])
+   const int advanced_opt    = 0x211;
+   const int aspect_mode_opt = 0x212;
+   const int crop_opt        = 0x213;
++  const int pause_at_end_opt = 0x214;
+   const int http_cookie_opt = 0x300;
+   const int http_user_agent_opt = 0x301;
+   const int lavfdopts_opt   = 0x400;
+@@ -624,6 +626,7 @@ int main(int argc, char *argv[])
+     { "layout",       required_argument,  NULL,          layout_opt },
+     { "dbus_name",    required_argument,  NULL,          dbus_name_opt },
+     { "loop",         no_argument,        NULL,          loop_opt },
++    { "pause-at-end", no_argument,        NULL,          pause_at_end_opt },
+     { "layer",        required_argument,  NULL,          layer_opt },
+     { "alpha",        required_argument,  NULL,          alpha_opt },
+     { "display",      required_argument,  NULL,          display_opt },
+@@ -878,6 +881,9 @@ int main(int argc, char *argv[])
+             m_loop_from = m_incr;
+         m_loop = true;
+         break;
++      case pause_at_end_opt:
++        m_pause_at_end = true;
++        break;
+       case 'b':
+         m_blank_background = optarg ? strtoul(optarg, NULL, 0) : 0xff000000;
+         break;
+@@ -1774,6 +1780,10 @@ int main(int argc, char *argv[])
+       if (m_loop)
+       {
+         m_incr = m_loop_from - (m_av_clock->OMXMediaTime() ? m_av_clock->OMXMediaTime() / DVD_TIME_BASE : last_seek_pos);
++        if (m_pause_at_end)
++        {
++          m_Pause = true;
++        }
+         continue;
+       }
+ 
+-- 
+2.19.1
+
